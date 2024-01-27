@@ -2444,7 +2444,7 @@ async def iptal(message):
             kelime = f(f"games.{oyun_id}.kelime")
             oyun_tipi = f(f"games.{oyun_id}.oyun_tipi")
 
-            if oyun_tipi == "kelimeoyunu":
+            if oyun_tipi == "kelimeoyunu","sessiz_sinema":
                 skorlar = f(f"games.{oyun_id}.skorlar")
                 #round = int(f(f"games.{oyun_id}.round")) + 1
                 #toplam_round = f(f"games.{oyun_id}.toplam_round")
