@@ -1,0 +1,25 @@
+{
+
+  "name": "Tg Eğlence Bot",
+
+  "description": "Pyrogram İle Yazılmış Bir Eğlence Botu",
+
+  "repository": "https://github.com/Mamaklicengo/KaosKelime",
+
+  "logo": "https://telegramchannels.me/storage/medi-logo/201/dcgamebot.jpg",
+
+  "keywords": ["telegram", "game", "pyrogram","telegram bot"],
+    
+
+
+   "buildpacks": [
+
+    {
+
+      "url": "heroku/python"
+
+    }
+
+  ]
+
+}
