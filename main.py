@@ -46,21 +46,21 @@ bot_adi = ""
 if hex(getnode()) in ["0xdc7b23bb434e"]: #windows masaüstü pc ise veya laptop
     #kaç yaşındasın bot
     print("kyb")
-    bot_adi = "@vefakelimebot"
-    bot_token = "6191673056:AAFefwlppZRjyENFfb9cfae4s_NHhufhb1M"
+    bot_adi = "@mamaklikelimebot"
+    bot_token = "6531499751:AAGHzxki3QsflZqnh3wnk_1qF-yZE5YJxtw"
     bot = AsyncTeleBot(bot_token, parse_mode="html")
 else:
     #sıl octopus bot
-    bot_adi = "@vefakelimebot"
-    bot_token = "6191673056:AAFefwlppZRjyENFfb9cfae4s_NHhufhb1M"
+    bot_adi = "@mamaklikelimebot"
+    bot_token = "6531499751:AAGHzxki3QsflZqnh3wnk_1qF-yZE5YJxtw"
     bot = AsyncTeleBot(bot_token, parse_mode="html")
 
 temp = {}
 
 
-kurucu_id = 6191673056
+kurucu_id = 6532412571
 
-admins = [kurucu_id, 6191673056]
+admins = [kurucu_id, 6532412571]
 
 zaman_hassasiyeti = pow(10,6)
 
