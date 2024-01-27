@@ -566,7 +566,7 @@ async def start_private(message): #, **kwargs
             else:
                 await bot.send_message(user_id,'Bu oyunu siz açmamışsınız 🚫')
         else:
-            f(f"privates.{user_id}.start",True)
+            f(f"privates.{user_id}.start",False)
             keyboard = types.InlineKeyboardMarkup()
 
             callback_button = types.InlineKeyboardButton(text="🇹🇷 ʙᴇɴɪ ɢʀᴜʙᴀ ᴇᴋʟᴇ 🇹🇷", url="https://t.me/Mamaklikelimebot?startgroup=a")
