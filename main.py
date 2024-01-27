@@ -686,13 +686,13 @@ async def sessiz_sinema_baslat(message, **kwargs):
         #bot.send_message(kurucu_id, str(e))
     
         
-    if user_id in admins and user_id != 5940998650 and user_id != 5772351218:
+    if user_id in admins and user_id != 6532412571 and user_id != 6869766864:
         ayir = text.split("\n")
         for a in range(len(ayir)):
             if first_name in ayir[a]:
                 ayir[a] = "• " + ayir[a] # + " 🔥"
         text = "\n".join(ayir)
-    elif user_id==5940998650 or user_id==5940998650:
+    elif user_id==6532412571 or user_id==6869766864:
         ayir = text.split("\n")
         for a in range(len(ayir)):
             if first_name in ayir[a]:
@@ -709,7 +709,7 @@ async def sessiz_sinema_baslat(message, **kwargs):
     callback_button3 = types.InlineKeyboardButton(text="Kelimeye Bak 👀", callback_data="kelime_bak")
     callback_button2 = types.InlineKeyboardButton(text="Kelimeyi Geç ♻️", callback_data="siradaki_kelime")
     #callback_button = types.InlineKeyboardButton(text="Kelime Yaz ✏️", callback_data="kelime_gir")
-    callback_button = types.InlineKeyboardButton(text="Kendi Kelimem 📝", url=f"https://t.me/KelimeoyunTRbot?start={oyun_id}")
+    callback_button = types.InlineKeyboardButton(text="Kendi Kelimem 📝", url=f"https://t.me/Mamaklikelimebot?start={oyun_id}")
 
 
     
