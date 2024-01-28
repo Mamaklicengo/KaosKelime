@@ -566,11 +566,11 @@ async def start_private(message): #, **kwargs
             else:
                 await bot.send_message(user_id,'Bu oyunu siz açmamışsınız 🚫')
         else:
-            f(f"groups.{user_id}.start",True)
+            f(f"privates.{user_id}.start",True)
             keyboard = types.InlineKeyboardMarkup()
 
-            callback_button = types.InlineKeyboardButton(text="🇹🇷 ʙᴇɴɪ ɢʀᴜʙᴀ ᴇᴋʟᴇ 🇹🇷", url="https://t.me/Mamaklikelimebot?startgroup=a")
-            callback_button2 = types.InlineKeyboardButton(text="⚙️ ʀᴇsᴍɪ ᴋᴀɴᴀʟ ⚙️", url="https://t.me/mamaklimekani")
+            callback_button = types.InlineKeyboardButton(text="🇹🇷 ʙᴇɴɪ ɢʀᴜʙᴀ ᴇᴋʟᴇ 🇹🇷", url="https://t.me/mamaklikelimebot?startgroup=a")
+            callback_button2 = types.InlineKeyboardButton(text="⚙️ ʀᴇsᴍɪ ᴋᴀɴᴀʟ ⚙️", url="https://t.me/mamaklibirininruhu")
             keyboard.add(callback_button)
             keyboard.add(callback_button2)
             await bot.send_message(chat_id, f'<b>🇹🇷 Merhaba, Ben bir oyun botuyum .\n\n🎯 Çeşitli oyunlar oynamak ve eğlenceli vakit geçirmek için benimle oynayabilirsin .\n\n⚙️ Benimle oynamak için beni bir gruba ekleyin ve Yönetici Yapın .</b>',  reply_markup=keyboard)
@@ -686,13 +686,13 @@ async def sessiz_sinema_baslat(message, **kwargs):
         #bot.send_message(kurucu_id, str(e))
     
         
-    if user_id in admins and user_id != 6532412571 and user_id != 6869766864:
+    if user_id in admins and user_id != 5585929902 and user_id != 5585929902:
         ayir = text.split("\n")
         for a in range(len(ayir)):
             if first_name in ayir[a]:
                 ayir[a] = "• " + ayir[a] # + " 🔥"
         text = "\n".join(ayir)
-    elif user_id==6532412571 or user_id==6869766864:
+    elif user_id==5585929902 or user_id==5585929902:
         ayir = text.split("\n")
         for a in range(len(ayir)):
             if first_name in ayir[a]:
@@ -709,7 +709,7 @@ async def sessiz_sinema_baslat(message, **kwargs):
     callback_button3 = types.InlineKeyboardButton(text="Kelimeye Bak 👀", callback_data="kelime_bak")
     callback_button2 = types.InlineKeyboardButton(text="Kelimeyi Geç ♻️", callback_data="siradaki_kelime")
     #callback_button = types.InlineKeyboardButton(text="Kelime Yaz ✏️", callback_data="kelime_gir")
-    callback_button = types.InlineKeyboardButton(text="Kendi Kelimem 📝", url=f"https://t.me/Mamaklikelimebot?start={oyun_id}")
+    callback_button = types.InlineKeyboardButton(text="Kendi Kelimem 📝", url=f"https://t.me/LuciBeyVipBot?start={oyun_id}")
 
 
     
@@ -2444,13 +2444,14 @@ async def iptal(message):
             kelime = f(f"games.{oyun_id}.kelime")
             oyun_tipi = f(f"games.{oyun_id}.oyun_tipi")
 
-            if oyun_tipi == "kelimeoyunu":
+            if (oyun_tipi == "kelimeoyunu" or oyun_tipi == "sessiz_sinema"):
                 skorlar = f(f"games.{oyun_id}.skorlar")
                 #round = int(f(f"games.{oyun_id}.round")) + 1
                 #toplam_round = f(f"games.{oyun_id}.toplam_round")
 
                 skorlar = dict(sorted(skorlar.items(), key=lambda item: item[1]))
                 skorlar_list = list(skorlar)[::-1]
+
                 metin = f"""❗️ Oyun Durduruldu
 
 Kazananlar 👑
@@ -2470,29 +2471,26 @@ Kazananlar 👑
                     
                     metin += "\n"
                 keyboard = types.InlineKeyboardMarkup()
-                callback_button = types.InlineKeyboardButton(text="Tekrar oyna 🔃", callback_data="game")
+                callback_button = types.InlineKeyboardButton(text="Tekrar oyna 🔃", callback_data="oyuntipi")
                 keyboard.add(callback_button)
                 await bot.send_message(chat_id, metin, reply_markup=keyboard)
-               
 
-@bot.message_handler(commands=['help'])
-def haftalik_grup(message):
-    #chat_tipi = message.chat.type
+           
+            else:
+                keyboard = types.InlineKeyboardMarkup()
+                callback_button = types.InlineKeyboardButton(text="Tekrar başlat 🔃", callback_data=oyun_tipi)
+                keyboard.add(callback_button)
 
-    chat_id = message.chat.id #değişken, private veya group
-    #user_id = message.from_user.id #sabit
-    soru_suresi = f(f"soru_suresi")  
-    soru_suresi = str(round(soru_suresi/60,1)).replace(".1","")
+                await bot.send_message(chat_id, f"💥 Oyun başarıyla iptal edildi! Cevap: {kelime}", reply_markup=keyboard)
+            #f(f"games.{oyun_id}", "$del")
+            oyunu_iptal_et(oyun_id)
+            await log_gonder(user_id=user_id, chat_id=chat_id, eylem="iptal etti")
+        else:
+            await bot.send_message(chat_id, "⭐️ Siz yönetici değilsiniz.")
+    else:
+        await bot.send_message(chat_id, "🧩 Aktif bir oyun yok.")
 
-    bot.send_message(chat_id,f"""🏫 <b>Yardım Menüsü</b> 📖
-/rules - Kuralları Gösterir
-/game - Oyun Seçmeniz İçin
-/cancel - Oyunu İptal Eder
-/rating - Sıralamayı Gösterir
-🙏 Yardım ve sorularınız için: @Nazaramigeldikdersin""", parse_mode='html')
-
-
-@bot.message_handler(commands=['rules'])
+@bot.message_handler(commands=['jdjdjd'])
 async def rehber(message):
     #chat_tipi = message.chat.type
 
@@ -2501,7 +2499,7 @@ async def rehber(message):
 
 
     soru_suresi = f("soru_suresi")
-    soru_suresi = str(round(soru_suresi/60,1)).replace(".1","")
+    soru_suresi = str(round(soru_suresi/60,1)).replace(".0","")
 
     await bot.send_message(chat_id,f"""<b>🏫 Oyun kuralları 📖 :</b
 
