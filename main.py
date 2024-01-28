@@ -2422,6 +2422,75 @@ async def resetskor(message):
 
 
 
+@bot.message_handler(commands=['yetti'])
+async def iptal(message):
+    chat_tipi = message.chat.type
+
+    chat_id = message.chat.id #değişken, private veya group
+    user_id = message.from_user.id #sabit
+
+
+    if chat_tipi == "private":
+        await bot.send_message(chat_id, "Bu komut sadece gruplarda çalışır.")
+        return
+      
+
+
+    konumlar = oyun_var_mi(chat_id)
+    if konumlar != False:
+        if await is_admin(chat_id, user_id):
+            oyun_id = konumlar[0]
+
+            kelime = f(f"games.{oyun_id}.kelime")
+            oyun_tipi = f(f"games.{oyun_id}.oyun_tipi")
+
+            if (oyun_tipi == "sessizsinema"):
+                skorlar = f(f"games.{oyun_id}.skorlar")
+                #round = int(f(f"games.{oyun_id}.round")) + 1
+                #toplam_round = f(f"games.{oyun_id}.toplam_round")
+
+                skorlar = dict(sorted(skorlar.items(), key=lambda item: item[1]))
+                skorlar_list = list(skorlar)[::-1]
+
+                metin = f"""❗️ Oyun Durduruldu
+
+Kazananlar 👑
+"""
+                for n, i in enumerate(skorlar_list):
+                    if n + 1 == 1:
+                        metin += "🥇 "
+                    elif n + 1 == 2:
+                        metin += "🥈 "
+                    elif n + 1 == 3:
+                        metin += "🥉 "
+                    else:
+                        metin += "▫️ "
+
+                    skorlar[i] = round(skorlar[i])
+                    metin += f'<b>{n+1}.</b> {f(f"privates.{i}.first_name")} → <code>{skorlar[i]}</code> puan'
+                    
+                    metin += "\n"
+                keyboard = types.InlineKeyboardMarkup()
+                callback_button = types.InlineKeyboardButton(text="Tekrar oyna 🔃", callback_data="sessizsinema")
+                keyboard.add(callback_button)
+                await bot.send_message(chat_id, metin, reply_markup=keyboard)
+
+           
+            else:
+                keyboard = types.InlineKeyboardMarkup()
+                callback_button = types.InlineKeyboardButton(text="Tekrar başlat 🔃", callback_data=oyun_tipi)
+                keyboard.add(callback_button)
+
+                await bot.send_message(chat_id, f"💥 Oyun başarıyla iptal edildi! Cevap: {kelime}", reply_markup=keyboard)
+            #f(f"games.{oyun_id}", "$del")
+            oyunu_iptal_et(oyun_id)
+            await log_gonder(user_id=user_id, chat_id=chat_id, eylem="iptal etti")
+        else:
+            await bot.send_message(chat_id, "⭐️ Siz yönetici değilsiniz.")
+    else:
+        await bot.send_message(chat_id, "🧩 Aktif bir oyun yok.")
+
+
 @bot.message_handler(commands=['stop'])
 async def iptal(message):
     chat_tipi = message.chat.type
@@ -2471,7 +2540,7 @@ Kazananlar 👑
                     
                     metin += "\n"
                 keyboard = types.InlineKeyboardMarkup()
-                callback_button = types.InlineKeyboardButton(text="Tekrar oyna 🔃", callback_data="oyuntipi")
+                callback_button = types.InlineKeyboardButton(text="Tekrar oyna 🔃", callback_data="kelimeoyunu")
                 keyboard.add(callback_button)
                 await bot.send_message(chat_id, metin, reply_markup=keyboard)
 
