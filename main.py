@@ -2451,11 +2451,6 @@ async def iptal(message):
 
                 skorlar = dict(sorted(skorlar.items(), key=lambda item: item[1]))
                 skorlar_list = list(skorlar)[::-1]
-            elif oyun_tipi == "sessizsinema":
-                skorlar = f(f"games.{oyun_id}.skorlar")
-                skorlar = dict(sorted(skorlar.items(), key=lambda item: item[1]))
-                skorlar_list = list(skorlar)[::-1]
-
                 metin = f"""❗️ Oyun Durduruldu
 
 Kazananlar 👑
