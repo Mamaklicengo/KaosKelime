@@ -2475,7 +2475,7 @@ Kazananlar 👑
                     
                     metin += "\n"
                 keyboard = types.InlineKeyboardMarkup()
-                callback_button = types.InlineKeyboardButton(text="Tekrar oyna 🔃", callback_data="")
+                callback_button = types.InlineKeyboardButton(text="Tekrar oyna 🔃", callback_data="game")
                 keyboard.add(callback_button)
                 await bot.send_message(chat_id, metin, reply_markup=keyboard)
                
