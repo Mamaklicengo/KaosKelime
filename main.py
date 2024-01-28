@@ -2451,31 +2451,7 @@ async def iptal(message):
 
                 skorlar = dict(sorted(skorlar.items(), key=lambda item: item[1]))
                 skorlar_list = list(skorlar)[::-1]
-
-                metin = f"""❗️ Oyun Durduruldu
-
-Kazananlar 👑
-"""
-                for n, i in enumerate(skorlar_list):
-                    if n + 1 == 1:
-                        metin += "🥇 "
-                    elif n + 1 == 2:
-                        metin += "🥈 "
-                    elif n + 1 == 3:
-                        metin += "🥉 "
-                    else:
-                        metin += "▫️ "
-
-                    skorlar[i] = round(skorlar[i])
-                    metin += f'<b>{n+1}.</b> {f(f"privates.{i}.first_name")} → <code>{skorlar[i]}</code> puan'
-                    
-                    metin += "\n"
-                keyboard = types.InlineKeyboardMarkup()
-                callback_button = types.InlineKeyboardButton(text="Tekrar oyna 🔃", callback_data="kelimeoyunu")
-                keyboard.add(callback_button)
-                await bot.send_message(chat_id, metin, reply_markup=keyboard)
-               
-            if oyun_tipi == "sessizsinema":
+            elif oyun_tipi == "sessizsinema":
                 skorlar = f(f"games.{oyun_id}.skorlar")
                 skorlar = dict(sorted(skorlar.items(), key=lambda item: item[1]))
                 skorlar_list = list(skorlar)[::-1]
@@ -2499,7 +2475,7 @@ Kazananlar 👑
                     
                     metin += "\n"
                 keyboard = types.InlineKeyboardMarkup()
-                callback_button = types.InlineKeyboardButton(text="Tekrar oyna 🔃", callback_data="sessizsinema")
+                callback_button = types.InlineKeyboardButton(text="Tekrar oyna 🔃", callback_data="")
                 keyboard.add(callback_button)
                 await bot.send_message(chat_id, metin, reply_markup=keyboard)
                
