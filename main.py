@@ -2474,6 +2474,13 @@ Kazananlar 👑
                 callback_button = types.InlineKeyboardButton(text="Tekrar oyna 🔃", callback_data="kelimeoyunu")
                 keyboard.add(callback_button)
                 await bot.send_message(chat_id, metin, reply_markup=keyboard)
+               if oyun_tipi == "sessizsinema":
+    skorlar = f(f"games.{oyun_id}.skorlar")
+    skorlar = dict(sorted(skorlar.items(), key=lambda item: item[1]))
+    metin = "❗️ Oyun Durduruldu\n\nSessiz Sinema Skor Tablosu:\n"
+    for oyuncu, puan in skorlar.items():
+        metin += f"{f(f'privates.{oyuncu}.first_name')} → {puan} puan\n"
+    await bot.send_message(chat_id, metin)
             else:
                 keyboard = types.InlineKeyboardMarkup()
                 callback_button = types.InlineKeyboardButton(text="Tekrar başlat 🔃", callback_data=oyun_tipi)
